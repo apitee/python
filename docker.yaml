@@ -8,7 +8,7 @@ REQUIRE:
 SET:
   MANAGER: curl http://python.apitee.com/get_package_manager_name.sh || bash
   USER: whoami
-  OS: 
+  OS: hostnamectl | grep "Operating System"
   
 DEFINE:
   INSTALL: sudo {{MANAGER}} install {{PACKAGE}}
@@ -38,7 +38,9 @@ RUN:
     FILE: logs.csv
   INSTALL:    
       - git
-  - DOCKER
+  DOCKER:
+    {{OS}}: INSTALL
+    
   START:
     - docker
   BUILD:
