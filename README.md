@@ -16,6 +16,7 @@ python.apitee.com
 REQUIRE
     - 
 
+
 SET_FROM_FILE:
     SSH:
         HOSTNAME: ./host/.name
@@ -23,18 +24,38 @@ SET_FROM_FILE:
         USERNAME: ./host/.user
         PORT: ./host/.port
 
+
 SET:
     SSH: ssh {{PASSWORD}} {{USERNAME}}@{{HOSTNAME}}:{{PORT}}
-    
+    HOST:
+        - cd {{NAME}}
+        - SET_FROM_FILE SERVER
+        - ssh {{PASSWORD}} {{USERNAME}}@{{HOSTNAME}}:{{PORT}}
+    HOST:
+        - cd {{NAME}}
+        - SET_FROM_FILE:
+            HOSTNAME: .name
+            PASSWORD: .pass
+            USERNAME: .user
+            PORT: .port
+        - ssh {{PASSWORD}} {{USERNAME}}@{{HOSTNAME}}:{{PORT}}
 
 RUN:
     SSH:
-        - whoami
-        - git clone https://github.com/apitee/python.git || bash
-        - git clone https://github.com/apitee/examples.git
-        - apitee example1
-        - apitee example2
-
+        - whoami        
+    HOST:
+        client:
+            - git clone https://github.com/apitee/python.git || bash
+            - git clone https://github.com/apitee/examples.git
+            - apitee example1
+        server:
+            - git clone https://github.com/apitee/python.git || bash
+            - git clone https://github.com/apitee/examples.git
+            - apitee example2
+    FTP:
+        webui:
+            - git clone https://github.com/apitee/python.git || bash
+            - git clone https://github.com/apitee/examples.git
 ```
 
 
