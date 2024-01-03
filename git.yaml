@@ -1,5 +1,5 @@
-DOCUMENT:
-  - http://docs.apitee.com
+VERSION: 3
+DOCUMENT: http://docs.apitee.com
 
 REQUIRE:
   - http://logs.apitee.com
@@ -14,7 +14,7 @@ DEFINE:
   START: sudo systemctl start {{ITEM}}
   CLONE_REPO: git clone {{ITEM}}
   CLONE_TO_FOLDER: git clone {{NAME:REPO}} {{VALUE:FOLDER}}
-  DEPLOY: docker build {{
+  DEPLOY: docker build {{}}
   UNDEPLOY: docker image prune
   TEST: sudo docker run hello-world
   
@@ -26,12 +26,6 @@ RUN:
     - git
     - nano
     - fish
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
-    - docker-buildx-plugin
-    - docker-compose-plugin
-    - docker
   START:
     - docker
     - fish
@@ -45,4 +39,5 @@ RUN:
       www: https://github.com/apimacro/www.git
       logo: https://github.com/apimacro/logo.git
   DEPLOY:
-    
+    - ./
+  - UNDEPLOY
