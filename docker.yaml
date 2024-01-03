@@ -1,5 +1,5 @@
-DOCUMENT:
-  - http://docs.apitee.com
+VERSION: 1
+DOCUMENT: http://docs.apitee.com
 
 REQUIRE:
   - http://logs.apitee.com
