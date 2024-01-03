@@ -27,21 +27,31 @@ SET:
         - ssh {{PASSWORD}} {{USERNAME}}@{{HOSTNAME}}:{{PORT}}
 
 RUN:
-    SSH:
+    LOGS:
+        FORMAT: {{TIME}} {{COMMAND}} {{NAME}} {{VALUE}}
+        TYPE: csv
+        FILE: logs.csv
+    SSH: 
+        SET_FROM_FILE: 
+            HOSTNAME: ./host/.name
+            PASSWORD: ./host/.pass
+            USERNAME: ./host/.user
+            PORT: ./host/.port
+        RUN_FROM_FILE: 
+            - deploy_commands.sh
         - whoami        
+        
     HOST:
         client:
             - git clone https://github.com/apitee/python.git || bash
             - git clone https://github.com/apitee/examples.git
             - apitee example1
         server:
-            - git clone https://github.com/apitee/python.git || bash
-            - git clone https://github.com/apitee/examples.git
-            - apitee example2
+           RUN_FROM_FILE: deploy_commands.sh
     FTP:
-        webui:
-            - git clone https://github.com/apitee/python.git || bash
-            - git clone https://github.com/apitee/examples.git
+        webui: 
+           RUN_FROM_FILE: deploy_commands.sh
+            
 
 RUN_FROM_FILE:
  - deploy_commands.sh
