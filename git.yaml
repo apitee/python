@@ -1,18 +1,25 @@
-VARIABLE:
-  package: curl get_package_manager_name.sh || bash
+DOCUMENT:
+  - http://docs.apitee.com
+  
+SET:
+  MANAGER: curl http://python.apitee.com/get_package_manager_name.sh || bash
   
 DEFINE:
   INSTALL: {{MANAGER}} install {{PACKAGE}}
-  GIT: git clone {{LIST:REPO}}
-  GIT_FOLDER: git clone {{NAME:REPO}} {{VALUE:FOLDER}}
+  CLONE: git clone {{LIST:REPO}}
+  CLONE_TO_FOLDER: git clone {{NAME:REPO}} {{VALUE:FOLDER}}
 
 RUN:
-  GIT:
+  INSTALL:
+    - git
+    - nano
+    - fish
+  CLONE:
     REPO:
       - https://github.com/apimacro/bash.git
       - https://github.com/apimacro/www.git
       - https://github.com/apimacro/logo.git
-  GIT_FOLDER:    
+  CLONE_TO_FOLDER:    
       bash: https://github.com/apimacro/bash.git    
       www: https://github.com/apimacro/www.git
       logo: https://github.com/apimacro/logo.git
