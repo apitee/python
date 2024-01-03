@@ -1,6 +1,42 @@
 # python
 python.apitee.com
 
+## TODO:
+- bash script with args
+- install to /usr/bin
+- start with file: apitee git.yaml
+- start without file: apitee 
+    - show list of files in current folder
+    - show options:
+        - generate script
+        - update some SET VARIABLE, e.g. for testing purpose: apitee SET:MANAGER=apt
+        - deploy on remote machine, e.g. apitee ENV:HOST:=212.221.22.3
+
+```yaml
+REQUIRE
+    - 
+
+SET_FROM_FILE:
+    SSH:
+        HOSTNAME: ./host/.name
+        PASSWORD: ./host/.pass
+        USERNAME: ./host/.user
+        PORT: ./host/.port
+
+SET:
+    SSH: ssh {{PASSWORD}} {{USERNAME}}@{{HOSTNAME}}:{{PORT}}
+    
+
+RUN:
+    SSH:
+        - whoami
+        - git clone https://github.com/apitee/python.git || bash
+        - git clone https://github.com/apitee/examples.git
+        - apitee example1
+        - apitee example2
+
+```
+
 
 `PyYAML` library
 
