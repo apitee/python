@@ -1,4 +1,8 @@
+VARIABLE:
+  package: curl get_package_manager_name.sh || bash
+  
 DEFINE:
+  INSTALL: {{MANAGER}} install {{PACKAGE}}
   GIT: git clone {{LIST:REPO}}
   GIT_FOLDER: git clone {{NAME:REPO}} {{VALUE:FOLDER}}
 
