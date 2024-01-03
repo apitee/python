@@ -8,9 +8,26 @@ REQUIRE:
 SET:
   MANAGER: curl http://python.apitee.com/get_package_manager_name.sh || bash
   USER: whoami
+  OS: 
   
 DEFINE:
   INSTALL: sudo {{MANAGER}} install {{PACKAGE}}
+  FEDORA: dnf install 
+  DOCKER: 
+    FEDORA:
+      INSTALL:
+        - dnf-plugins-core
+      - sudo dnfconfig-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+    
+    DEBIAN:
+      INSTALL:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+        - docker
+      
   START: sudo systemctl start {{ITEM}}
   UNDEPLOY: docker image prune
   BUILD: sudo docker run {{BUILD}}
@@ -19,14 +36,9 @@ DEFINE:
 RUN:
   LOGS:
     FILE: logs.csv
-  INSTALL:
-    - git
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
-    - docker-buildx-plugin
-    - docker-compose-plugin
-    - docker
+  INSTALL:    
+      - git
+  - DOCKER
   START:
     - docker
   BUILD:
