@@ -43,6 +43,9 @@ RUN:
             - git clone https://github.com/apitee/python.git || bash
             - git clone https://github.com/apitee/examples.git
 
+RUN_FROM_FILE:
+ - deploy_commands.sh
+ 
 
 RUN SSH whoami
 RUN HOST client RUN_FROM_FILE deploy_commands.sh
