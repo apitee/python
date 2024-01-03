@@ -1,18 +1,38 @@
 DOCUMENT:
   - http://docs.apitee.com
+
+REQUIRE:
+  - http://logs.apitee.com
   
 SET:
   MANAGER: curl http://python.apitee.com/get_package_manager_name.sh || bash
+  USER: whoami
   
 DEFINE:
-  INSTALL: {{MANAGER}} install {{PACKAGE}}
-  CLONE: git clone {{LIST:REPO}}
+  INSTALL: sudo {{MANAGER}} install {{PACKAGE}}
+  START: sudo systemctl start {{ITEM}}
+  CLONE_REPO: git clone {{ITEM}}
   CLONE_TO_FOLDER: git clone {{NAME:REPO}} {{VALUE:FOLDER}}
+  DEPLOY: docker build {{
+  UNDEPLOY: docker image prune
+  TEST: sudo docker run hello-world
+  
 
 RUN:
+  LOGS:
+    FILE: logs.csv
   INSTALL:
     - git
     - nano
+    - fish
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
+    - docker
+  START:
+    - docker
     - fish
   CLONE:
     REPO:
@@ -23,4 +43,5 @@ RUN:
       bash: https://github.com/apimacro/bash.git    
       www: https://github.com/apimacro/www.git
       logo: https://github.com/apimacro/logo.git
-      
+  DEPLOY:
+    
