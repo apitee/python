@@ -1,0 +1,15 @@
+DEFINE:
+  GIT: git clone {{LIST:REPO}}
+  GIT_FOLDER: git clone {{NAME:REPO}} {{VALUE:FOLDER}}
+
+RUN:
+  GIT:
+    REPO:
+      - https://github.com/apimacro/bash.git
+      - https://github.com/apimacro/www.git
+      - https://github.com/apimacro/logo.git
+  GIT_FOLDER:    
+      bash: https://github.com/apimacro/bash.git    
+      www: https://github.com/apimacro/www.git
+      logo: https://github.com/apimacro/logo.git
+      
